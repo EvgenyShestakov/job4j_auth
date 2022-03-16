@@ -15,7 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.job4j.auth.model.Person;
-import ru.job4j.auth.service.PersonService;
+import ru.job4j.auth.service.ServicePerson;
 import java.util.*;
 
 
@@ -32,14 +32,14 @@ public class Job4jAuthApplicationTest {
     private ObjectMapper mapper;
 
     @MockBean
-    private PersonService personService;
+    private ServicePerson personServicePerson;
 
     @Test
     public void getAllPerson() throws Exception {
         Collection<Person> records = new ArrayList<>(Arrays.
                 asList(new Person(1, "John", "123"),
                         new Person(2, "Alex", "456")));
-        Mockito.when(personService.findAll()).thenReturn(records);
+        Mockito.when(personServicePerson.findAll()).thenReturn(records);
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/person/")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -50,7 +50,7 @@ public class Job4jAuthApplicationTest {
 
     @Test
     public void getFoundPatientById() throws Exception {
-        Mockito.when(personService.findById(2)).
+        Mockito.when(personServicePerson.findById(2)).
                 thenReturn(java.util.Optional.of(new Person(2, "Alex", "123")));
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/person/2")
@@ -62,7 +62,7 @@ public class Job4jAuthApplicationTest {
 
     @Test
     public void getNotFoundPatientById() throws Exception {
-        Mockito.when(personService.findById(2)).
+        Mockito.when(personServicePerson.findById(2)).
                 thenReturn(java.util.Optional.empty());
         mockMvc.perform(MockMvcRequestBuilders
                 .get("/person/2")
@@ -73,7 +73,7 @@ public class Job4jAuthApplicationTest {
     @Test
     public void createPerson() throws Exception {
         Person person = new Person("John", "123");
-        Mockito.when(personService.save(person)).thenReturn(person);
+        Mockito.when(personServicePerson.save(person)).thenReturn(person);
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/person/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
@@ -87,7 +87,7 @@ public class Job4jAuthApplicationTest {
     @Test
     public void updatePerson() throws Exception {
         Person person = new Person(1, "John", "123");
-        Mockito.when(personService.save(person)).thenReturn(person);
+        Mockito.when(personServicePerson.save(person)).thenReturn(person);
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.put("/person/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

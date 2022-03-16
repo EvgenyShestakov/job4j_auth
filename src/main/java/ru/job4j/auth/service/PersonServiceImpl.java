@@ -1,7 +1,5 @@
 package ru.job4j.auth.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.auth.model.Person;
 import ru.job4j.auth.repository.PersonRepository;
 
@@ -10,8 +8,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class PersonServiceImpl implements PersonService {
+@org.springframework.stereotype.Service
+public class PersonServiceImpl implements ServicePerson {
     private final PersonRepository personRep;
 
     public PersonServiceImpl(PersonRepository personRep) {

@@ -14,8 +14,9 @@ public class Person {
 
     private String password;
 
-    public Person() {
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     public Person(String login, String password) {
         this.login = login;
@@ -26,6 +27,10 @@ public class Person {
         this.id = id;
         this.login = login;
         this.password = password;
+    }
+
+    public Person() {
+
     }
 
     public int getId() {
